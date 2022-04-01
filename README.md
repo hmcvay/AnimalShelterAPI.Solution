@@ -130,10 +130,10 @@ Sample JSON Response
             <td>Returns matches by sex (M or F)</td>
         </tr>
         <tr>
-          <td>Minimum Age</td>
+          <td>minimumAge</td>
           <td>int</td>
           <td>=</td>
-          <td>Returns >= minimum age</td>
+          <td>Returns animals whose age is >= minimumAge</td>
         </tr>
     </tbody>
   </table>
