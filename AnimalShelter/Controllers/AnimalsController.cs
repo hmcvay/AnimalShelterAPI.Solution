@@ -12,12 +12,10 @@ namespace AnimalShelter.Controllers
   public class AnimalsController : ControllerBase
   {
     private readonly AnimalShelterContext _db;
-    //pagination stuff?
 
     public AnimalsController(AnimalShelterContext db)
     {
       _db = db;
-      //pagination
     }
 
     // GET api/animals
