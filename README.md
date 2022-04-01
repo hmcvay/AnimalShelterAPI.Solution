@@ -67,9 +67,9 @@ An API that functions to keep track of adoptable pets for an animal shelter. It 
 
 <b>Using Swagger:</b> To explore the API with Swagger, after launching the project with `dotnet run`, input the following URL to the browser: `http://localhost:5000/swagger`
 
-You will be able to browse/access endpoints here via swagger, or alternatively 
+You will be able to browse/access endpoints here via swagger, or alternatively: 
 
-<b>Using Postman</b> Enter endpoints into the `GET`, or alternatively, add objects into the API via `POST`.
+<b>Using Postman</b> To explore the API in Postman, manually enter endpoints into the `GET`, or alternatively, you can add animals into the API by typing out the raw object into the body of the `POST`.
 
 ### ENDPOINTS
 
@@ -84,11 +84,14 @@ DELETE /api/animals{id}
 ```
 <br>
 Example request:
+
 ```
-http://localhost:5000/api/animals/4
+http://localhost:5000/api/animals/2
 ```
+
 <br>
 Sample JSON Response
+
 ```
 {
   "animalId": 2,
@@ -99,19 +102,67 @@ Sample JSON Response
   "description": "loves belly rubs"
 }
 ```
+
 <br>
 
 ### QUERIES
 
+ <table>
+    <thead>
+      <tr>
+        <th>Parameter</th>
+        <th>Type</th>
+        <th>Conditional</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Species</td>
+            <td>string</td>
+            <td>=</td>
+            <td>Returns matches by name</td>
+        </tr>
+        <tr>
+            <td>Sex</td>
+            <td>string</td>
+            <td>=</td>
+            <td>Returns matches by sex (M or F)</td>
+        </tr>
+        <tr>
+          <td>Age</td>
+          <td>int</td>
+          <td>> = <</td>
+          <td>Returns animals under, over, or equal to age</td>
+        </tr>
+    </tbody>
+  </table>
 
+<br>
 
+Example Query:
+`http:localhost:5000/api/animals?age>6`
 
+<br>
+
+Sample JSON Response:
+
+```
+{
+  "animalId": 1,
+  "species": "cat",
+  "name": "matilda",
+  "age": 8,
+  "sex": "F",
+  "description": "so cute, but hates kids"
+}
+```
 
 <br>
 
 ## Known Bugs
 
-* Currently you can have duplicate relationships; you can add croissant to "sweet" more than once, so when you click on "sweet" flavor it will list multiple "croissant"s.
+* Currently, Swagger runs in the browser, however, xml comments have not been configured properly: see commented out code for Swagger efforts made.
 
 <br>
 
