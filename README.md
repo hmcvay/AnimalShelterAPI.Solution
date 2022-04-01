@@ -130,10 +130,10 @@ Sample JSON Response
             <td>Returns matches by sex (M or F)</td>
         </tr>
         <tr>
-          <td>Age</td>
+          <td>Minimum Age</td>
           <td>int</td>
-          <td>> = <</td>
-          <td>Returns animals under, over, or equal to age</td>
+          <td>>=</td>
+          <td>Returns >= minimum age</td>
         </tr>
     </tbody>
   </table>
@@ -141,7 +141,9 @@ Sample JSON Response
 <br>
 
 Example Query:
-`http:localhost:5000/api/animals?age>6`
+```
+http:localhost:5000/api/animals?minimumAge>=6
+```
 
 <br>
 
