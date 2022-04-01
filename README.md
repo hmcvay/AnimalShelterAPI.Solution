@@ -132,7 +132,7 @@ Sample JSON Response
         <tr>
           <td>Minimum Age</td>
           <td>int</td>
-          <td>>=</td>
+          <td>=</td>
           <td>Returns >= minimum age</td>
         </tr>
     </tbody>
