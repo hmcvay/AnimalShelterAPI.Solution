@@ -1,3 +1,4 @@
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,7 +22,8 @@ namespace AnimalShelter
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<AnimalShelterContext>(opt => opt.UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
+            services.AddDbContext<AnimalShelterContext>(opt =>
+                opt.UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
             services.AddControllers();
         }
 

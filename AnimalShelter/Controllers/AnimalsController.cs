@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using AnimalShelter.Models;
+using System.Linq;
 
 namespace AnimalShelter.Controllers
 {
@@ -12,33 +12,52 @@ namespace AnimalShelter.Controllers
   public class AnimalsController : ControllerBase
   {
     private readonly AnimalShelterContext _db;
+
     public AnimalsController(AnimalShelterContext db)
     {
       _db = db;
     }
 
-    //GET api/animals
+    // GET api/animals
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Animal>>> Get()
+    public async Task<ActionResult<IEnumerable<Animal>>> Get(string species, string sex, string name, int minimumAge)
     {
-      return await _db.Animals.ToListAsync();
+      var query = _db.Animals.AsQueryable();
+
+      if (species != null)
+      {
+        query = query.Where(entry => entry.Species == species);
+      }
+      if (sex != null)
+      {
+        query = query.Where(entry => entry.Sex == sex);
+      }
+      if (name != null)
+      {
+        query = query.Where(entry => entry.Name == name);
+      }
+      if (minimumAge > 0)
+      {
+        query = query.Where(entry => entry.Age >= minimumAge);
+      }
+      return await query.ToListAsync();
     }
 
-      //GET api/animals/2
-    [HttpGet("{id")]
+    // GET: api/Animals/5
+    [HttpGet("{id}")]
     public async Task<ActionResult<Animal>> GetAnimal(int id)
     {
-      var animal = await _db.Animals.FindAsync(id);
+        var animal = await _db.Animals.FindAsync(id);
 
-      if (animal == null)
-      {
-        return NotFound();
-      }
+        if (animal == null)
+        {
+            return NotFound();
+        }
 
-      return animal;
+        return animal;
     }
 
-    //POST api/animals
+    // POST api/animals
     [HttpPost]
     public async Task<ActionResult<Animal>> Post(Animal animal)
     {
@@ -48,7 +67,7 @@ namespace AnimalShelter.Controllers
       return CreatedAtAction(nameof(GetAnimal), new { id = animal.AnimalId }, animal);
     }
 
-    //PUT api/animals/5
+    // PUT: api/Animals/5
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, Animal animal)
     {
@@ -56,7 +75,6 @@ namespace AnimalShelter.Controllers
       {
         return BadRequest();
       }
-
       _db.Entry(animal).State = EntityState.Modified;
 
       try
@@ -65,7 +83,7 @@ namespace AnimalShelter.Controllers
       }
       catch (DbUpdateConcurrencyException)
       {
-        if (!AnimalExists (id))
+        if (!AnimalExists(id))
         {
           return NotFound();
         }
@@ -82,7 +100,7 @@ namespace AnimalShelter.Controllers
       return _db.Animals.Any(e => e.AnimalId == id);
     }
 
-    //DELETE api/animals/2
+    //DELETE: api/Animal/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAnimal(int id)
     {
@@ -91,10 +109,8 @@ namespace AnimalShelter.Controllers
       {
         return NotFound();
       }
-
       _db.Animals.Remove(animal);
       await _db.SaveChangesAsync();
-
 
       return NoContent();
     }
