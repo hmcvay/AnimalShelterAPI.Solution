@@ -25,6 +25,7 @@ namespace AnimalShelter
             services.AddDbContext<AnimalShelterContext>(opt =>
                 opt.UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
             services.AddControllers();
+            services.AddSwaggerDocument(); //SWAGGER STUFF
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,6 +37,9 @@ namespace AnimalShelter
             }
 
             // app.UseHttpsRedirection();
+
+            app.UseOpenApi(); //SWAGGER STUFF
+            app.UseSwaggerUi3();//SWAGGER STUFF
 
             app.UseRouting();
 
